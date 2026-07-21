@@ -63,7 +63,7 @@ def evaluate_iou_detection(pred_mask, y, dt_ms, iou_thresh=0.3):
     precision = tp / (tp + fp) if (tp + fp) > 0 else 0
     recall = tp / (tp + fn) if (tp + fn) > 0 else 0
 
-    print("Pred events:", len(pred_ids),"GT events:", len(gt_ids))
+    print("Total GT blinks:", len(gt_ids))
     print("Precision:", precision)
     print("Recall:", recall)
 
@@ -72,10 +72,10 @@ def evaluate_iou_detection(pred_mask, y, dt_ms, iou_thresh=0.3):
         for k in pred_ids
     ]
 
-    if len(durations_ms) > 0:
-        print("Durations ms:",np.min(durations_ms),
-              np.median(durations_ms),
-              np.max(durations_ms))
+    #if len(durations_ms) > 0:
+    #    print("Durations ms:",np.min(durations_ms),
+    #          np.median(durations_ms),
+    #          np.max(durations_ms))
 
     return {'tp': tp,'fp': fp,'fn': fn,
             'precision': precision,

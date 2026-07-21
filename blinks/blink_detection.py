@@ -159,7 +159,7 @@ def main():
             )
 
             results = evaluate_iou_detection(blink_mask, y, dt_ms,iou_thresh=0.5)
-            print(results['fn'])
+            #print(results['fn'])
             all_tp += results['tp']
             all_fp += results['fp']
             all_fn += results['fn']

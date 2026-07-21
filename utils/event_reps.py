@@ -27,3 +27,26 @@ def activity_profile(events, scale=1/10, tau=30e3):
             last_off = t 
     return at_on, at_off, ts_on, ts_off
 
+
+
+def time_surface(events, size, t_ref, tau=6e3):
+
+    ts, x, y, p = events
+
+    H, W = size
+
+    sae_on  = np.zeros((H, W), np.float32)
+    sae_off = np.zeros((H, W), np.float32)
+
+    if len(ts) == 0:
+        return np.stack([sae_on, sae_off])
+
+    decay = np.exp(-(t_ref - ts) / tau)
+
+    on_mask  = p > 0
+    off_mask = p <= 0
+
+    sae_on[y[on_mask],  x[on_mask]]  = decay[on_mask]
+    sae_off[y[off_mask], x[off_mask]] = decay[off_mask]
+
+    return np.stack([sae_on, sae_off])
